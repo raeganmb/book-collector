@@ -1,11 +1,21 @@
 from django.db import models
 from django.urls import reverse
+# from datetime import date
 
 STATUS = (
     ('OS', 'On Shelf'),
     ('SR', 'Started Reading'),
     ('FR', 'Finished Reading')
 )
+
+class Bookmark(models.Model):
+    colour = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('bookmark_detail', kwargs={'pk': self.id})
 
 class Book(models.Model):
     title = models.CharField(max_length=100)
