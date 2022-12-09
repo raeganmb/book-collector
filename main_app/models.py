@@ -22,6 +22,7 @@ class Book(models.Model):
     author = models.CharField(max_length=100)
     genre = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
+    bookmark = models.ManyToManyField(Bookmark)
 
     def __str__(self):
         return self.title
