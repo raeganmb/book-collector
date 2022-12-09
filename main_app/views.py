@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Book
+from django.views.generic import ListView, DetailView
+from .models import Book, Bookmark
 from .forms import ReadingForm
 
 # Create your views here.
@@ -29,9 +30,11 @@ def books_index(request):
 
 def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
+    bookmarks_book_doesnt_have = Bookmark.objects.exclude(id__in = book.bookmark.all().values_list('id')) 
     reading_form = ReadingForm()
     return render(request, 'books/detail.html', { 
-        'book': book, 'reading_form': reading_form
+        'book': book, 'reading_form': reading_form,
+        'bookmarks': bookmarks_book_doesnt_have ,
     })
 
 def add_reading(request, book_id):
