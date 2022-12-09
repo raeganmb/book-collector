@@ -44,3 +44,7 @@ def add_reading(request, book_id):
         new_reading.book_id = book_id
         new_reading.save()
     return redirect('detail', book_id=book_id)
+
+def assoc_bookmark(request, book_id, bookmark_id):
+    Book.objects.get(id=book_id).bookmarks.add(bookmark_id)
+    return redirect('detail', book_id=book_id)
